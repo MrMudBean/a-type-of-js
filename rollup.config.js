@@ -2,20 +2,23 @@ import typescript from '@rollup/plugin-typescript';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
-// import terser from '@rollup/plugin-terser';
+import terser from '@rollup/plugin-terser';
 import cleanup from 'rollup-plugin-cleanup';
 import copy from 'rollup-plugin-copy';
 import { external } from '@qqi/rollup-external';
 
 export default {
-  input: './index.ts',
+  input: {
+    index: './index.ts', // 默认：聚合导出入口
+  },
   output: [
     {
-      format: 'es',
-      entryFileNames: '[name].mjs.js',
-      preserveModules: true,
-      sourcemap: false,
-      exports: 'named',
+      format: 'es', // ESM 模式
+      entryFileNames: '[name].mjs.js', // 打包文件名
+      preserveModules: true, // 保留独立模块结构（关键）
+      // preserveModulesRoot: 'src', // 保持 src 目录结构
+      sourcemap: false, // 正式环境：关闭 source map
+      exports: 'named', // 导出模式
       dir: 'dist/',
     },
     {
@@ -38,7 +41,7 @@ export default {
       tsconfig: 'tsconfig.json',
     }),
     // 打包压缩，自动去注释
-    // terser(),
+    terser(),
     // 去除无用代码
     cleanup(),
     copy({

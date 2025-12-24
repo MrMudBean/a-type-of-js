@@ -1,5 +1,9 @@
 # 版本日志
 
+## v1.1.0 (2025-12-24)
+
+一件超级尴尬的事，打包的构建 package.json 文件没有包含 `sideEffects: false` ，消费端无法进行正确的 Tree Shaking
+
 ## v1.0.8-beta.0 (2025-9-7)
 
 - for WechatMiniprogram
