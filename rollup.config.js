@@ -14,20 +14,21 @@ export default {
   output: [
     {
       format: 'es', // ESM 模式
-      entryFileNames: '[name].mjs.js', // 打包文件名
+      entryFileNames: '[name].js', // 打包文件名
       preserveModules: true, // 保留独立模块结构（关键）
-      // preserveModulesRoot: 'src', // 保持 src 目录结构
+      preserveModulesRoot: 'src', // 保持 src 目录结构
       sourcemap: false, // 正式环境：关闭 source map
       exports: 'named', // 导出模式
-      dir: 'dist/',
+      dir: 'dist/es/',
     },
     {
       format: 'cjs',
-      entryFileNames: '[name].cjs.js',
+      entryFileNames: '[name].js',
       preserveModules: true,
+      preserveModulesRoot: 'src', // 保持 src 目录结构
       sourcemap: false,
       exports: 'named',
-      dir: 'dist/',
+      dir: 'dist/cjs',
     },
   ],
   // 配置需要排除的包

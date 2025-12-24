@@ -14,6 +14,9 @@ let packageJson = readFileToJsonSync('./package.json');
 ['scripts', 'devDependencies', 'lint-staged', 'private'].forEach(
   key => delete packageJson[key],
 );
+const esPrefix = 'es'; // es 前缀
+const cjsPrefix = 'cjs'; // cjs 前缀
+const dtsPrefix = '.d.ts'; // 类型文件的前缀
 // 查看当前打包 dist 文件路径
 const distParentPath = getDirectoryBy('dist', 'directory');
 // 查看当前的源码文件路径（原则上与上面值一致）
@@ -38,23 +41,23 @@ for (const childrenName of srcChildrenList) {
   const childrenBaseName = basename(childrenName, extname(childrenName));
   // 子文件/夹的路径
   const childPath = pathJoin(srcDirectory, childrenName);
-  console.log(childPath);
+
   const childFile = fileExist(childPath); // 文件元数据
   if (!childFile) throw new RangeError(`${childrenName} 文件未能读取`);
   // 子文件是文件夹时以 index.xxx.js 为准
   if (childFile.isDirectory()) {
     exportsList[`./${childrenBaseName}`] = {
-      default: `./src/${childrenName}/index.mjs.js`,
-      import: `./src/${childrenName}/index.mjs.js`,
-      require: `./src/${childrenName}/index.cjs.js`,
-      types: `./src/${childrenName}/index.d.ts`,
+      default: `./${esPrefix}/${childrenName}/index.js`,
+      import: `./${esPrefix}/${childrenName}/index.js`,
+      require: `./${cjsPrefix}/${childrenName}/index.js`,
+      types: `./${dtsPrefix}/src/${childrenName}/index.d.ts`,
     };
   } else if (childFile.isFile()) {
     exportsList[`./${childrenBaseName}`] = {
-      default: `./src/${childrenBaseName}.mjs.js`,
-      import: `./src/${childrenBaseName}.mjs.js`,
-      require: `./src/${childrenBaseName}.cjs.js`,
-      types: `./src/${childrenBaseName}.d.ts`,
+      default: `./${esPrefix}/${childrenBaseName}.js`,
+      import: `./${esPrefix}/${childrenBaseName}.js`,
+      require: `./${cjsPrefix}/${childrenBaseName}.js`,
+      types: `./${dtsPrefix}/src/${childrenBaseName}.d.ts`,
     };
   } else {
     throw new Range(`${childrenName} 文件类型不符合要求`);
@@ -63,12 +66,13 @@ for (const childrenName of srcChildrenList) {
 
 // 整理后的 package.json 内容
 packageJson = {
-  main: 'index.cjs.js', // 旧版本 CommonJs 入口
-  module: 'index.mjs.js', // 旧版本 ESM 入口
-  types: 'index.d.ts', // 旧版本类型入口
+  ...packageJson,
+  main: cjsPrefix + '/index.js', // 旧版本 CommonJs 入口
+  module: esPrefix + '/index.js', // 旧版本 ESM 入口
+  types: dtsPrefix + '/index.d.ts', // 旧版本类型入口
   author: {
-    name: '花生亻',
-    email: 'earthnut.dev@outlook.com',
+    name: '泥豆君',
+    email: 'Mr.MudBean@outlook.com',
     url: 'https://earthnut.dev',
   },
   description: 'JavaScript/TypeScript 的类型检测工具，支持 TypeScript 类型收缩',
@@ -78,21 +82,20 @@ packageJson = {
     node: '>=14.0.0',
   },
   license: 'MIT',
-  ...packageJson,
-  files: ['index.cjs.js', 'index.mjs.js', 'index.d.ts', 'src'],
+  files: [cjsPrefix, esPrefix, dtsPrefix],
   exports: {
     '.': {
-      import: './index.mjs.js',
-      default: './index.mjs.js',
-      require: './index.cjs.js',
-      types: './index.d.ts',
+      import: `./${esPrefix}/index.js`,
+      default: `./${esPrefix}/index.js`,
+      require: `./${cjsPrefix}/index.js`,
+      types: `./${dtsPrefix}/index.d.ts`,
     },
     ...exportsList,
   },
   keywords: [
     'a-type-of-js',
-    'earthnut',
     'Mr.MudBean',
+    'earthnut',
     'type of js',
     'type check',
     'type validation',

@@ -1,6 +1,6 @@
 # a-type-of-js
 
-[![version](<https://img.shields.io/npm/v/a-type-of-js.svg?logo=npm&logoColor=rgb(0,0,0)&label=版本号&labelColor=rgb(73,73,228)&color=rgb(0,0,0)>)](https://www.npmjs.com/package/a-type-of-js) [![issues 提交](<https://img.shields.io/badge/issues-提交-rgb(255,0,63)?logo=github>)](https://github.com/earthnutDev/a-type-of-js/issues)
+[![version](<https://img.shields.io/npm/v/a-type-of-js.svg?logo=npm&logoColor=rgb(0,0,0)&label=版本号&labelColor=rgb(73,73,228)&color=rgb(0,0,0)>)](https://www.npmjs.com/package/a-type-of-js) [![issues 提交](<https://img.shields.io/badge/issues-提交-rgb(255,0,63)?logo=github>)](https://github.com/MrMudBean/a-type-of-js/issues)
 
 一个简单的类型判断工具
 
@@ -51,7 +51,7 @@ interface Person {
 function doSomething(value: string | number | boolean | ) {
 
     /// use judgment as a type judgment
-    if (isType<Person>(value, () => (value && value.name === 'earthnut' && value.age === 18))) {
+    if (isType<Person>(value, () => (value && value.name === 'Tom' && value.age === 18))) {
       console.log('value is Person');
       return;
     }

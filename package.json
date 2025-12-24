@@ -2,11 +2,12 @@
   "name": "a-type-of-js",
   "type": "module",
   "private": true,
-  "version": "1.1.0",
+  "version": "2.0.0",
   "scripts": {
     "b": "rollup --config rollup.config.js && tsc -p tsconfig.types.json",
     "clean:package": "node scripts/clean-package-json.js",
     "build": "jja rm dist cls && pnpm run b && pnpm run clean:package",
+    "build:local": "jja rm dist cls && node scripts/build-local.js",
     "diff": "jja pkg --diff",
     "push:version": "gvv",
     "push": "gvv",
@@ -29,6 +30,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@qqi/check-version": "^1.0.5",
+    "@qqi/copy-text": "^1.0.7",
     "@qqi/rollup-external": "^1.0.11",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-json": "^6.1.0",
