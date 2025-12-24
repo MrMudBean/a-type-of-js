@@ -45,7 +45,7 @@ echo "Auth token: $(npm config get //registry.npmjs.org/:_authToken || echo 'NOT
 
 cd "dist"
 echo "开始发布 npm 包 ${tag} 版本"
-if ! npm publish --provenance --access public --tag "${tag}" --no-git-checks; then
+if ! pnpm publish --provenance --access public --tag "${tag}" --no-git-checks; then
     echo "发布失败" 
     exit 1
 fi
