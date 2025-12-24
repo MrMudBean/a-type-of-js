@@ -37,9 +37,15 @@ fi
 # 确保脚本在遇见错误时立即退出
 set -e
 
+npm config list  # 检查当前配置
+
+echo "Registry: $(npm config get registry)"
+
+echo "Auth token: $(npm config get //registry.npmjs.org/:_authToken || echo 'NOT SET')"
+
 cd "dist"
 echo "开始发布 npm 包 ${tag} 版本"
-if ! pnpm publish --provenance --access public --tag "${tag}" --no-git-checks; then
+if ! npm publish --provenance --access public --tag "${tag}" --no-git-checks; then
     echo "发布失败" 
     exit 1
 fi

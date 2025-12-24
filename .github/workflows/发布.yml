@@ -50,6 +50,12 @@ jobs:
           registry-url: https://registry.npmjs.org
           # cache: 'pnpm' # 该行添加后触发了 github action 的发布错误
 
+      - name: clean npm auth
+        run: |
+          npm config delete //registry.npmjs.org/:_authToken
+          rm -f ~/.npmrc
+        shell: bash
+
       - name: pnpm 安装
         uses: pnpm/action-setup@v2
         with:
@@ -71,8 +77,10 @@ jobs:
       # - name: 构建 pnpm 全局 bin
 
       - name: 发布到 npm
-        # env:
-        # NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        env:
+          NPM_CONFIG_USERCONFIG: /dev/null # 强制忽略本地配置
+          # NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         run: |
+
           chmod +x ./scripts/pub.sh
           ./scripts/pub.sh
