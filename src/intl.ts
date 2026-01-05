@@ -1,9 +1,11 @@
 /**
  * 检测 Javascript 数据类型工具之: Intl
- *
- * @packageDocumentation
- * @module @a-type-of-js/intl
+ * @author Mr.MudBean <Mr.MudBean@outlook.com>
  * @license MIT
+ * @since
+ * @copyright
+ * @packageDocumentation
+ * @module @a-type-of-js/
  */
 import { typeOf } from './typeOf';
 /**
